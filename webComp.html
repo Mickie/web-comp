@@ -1,0 +1,23 @@
+<!DOCTYPE>
+  <html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="import" href="_input.html">
+    </head>
+    <body>
+       <h2>I am in main dom</h2>
+       <cus-input>
+           <h4>I am inside shadow dom</h4>
+       </cus-input>
+       <button>empty</button>
+    <script>
+        var btn = document.querySelector("button");
+        var cusInput = document.querySelector("cus-input");
+
+        btn.addEventListener('click', function () {
+            cusInput.dispatchEvent(new Event("emptyInput"));
+        })
+
+    </script>
+    </body>
+  </html>

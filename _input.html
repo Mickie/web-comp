@@ -1,0 +1,34 @@
+<template id="input">
+    <style>
+        input{
+            border:1px solid blue;
+        }
+    </style>
+    <input class="cusInput" value="hello there">
+    <div class="result"></div>
+</template>
+<script>
+    var proto = Object.create(HTMLElement.prototype);
+    var thisDom = document.currentScript.ownerDocument;
+    proto.createdCallback = function () {
+        var temp = thisDom.querySelector('#input');
+        var clone = document.importNode(temp.content, true);
+        var root = this.createShadowRoot();
+        root.appendChild(clone);
+        var inpt = root.querySelector("input");
+        var result = root.querySelector(".result");
+
+        //bind event to shadow element
+        inpt.addEventListener("input",function(){
+            result.innerHTML = inpt.value;
+        },false);
+
+
+        //got event from main dom dispatched
+        this.addEventListener("emptyInput",function(){
+            inpt.value = "";
+        })
+    };
+
+    document.registerElement('cus-input', {prototype: proto});
+</script>
